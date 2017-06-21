@@ -7,7 +7,16 @@
 		{
 			"Name": "MyTankBattleUnreal",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"AIModule"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "CodeView",
+			"Enabled": true
 		}
 	]
 }

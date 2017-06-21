@@ -23,4 +23,7 @@ public:
 	 * @returns The tank pawn controlled by this TankPlayerController
 	 */
 	ATank* GetControlledTank() const;
+
+protected:
+	void BeginPlay() override;
 };
