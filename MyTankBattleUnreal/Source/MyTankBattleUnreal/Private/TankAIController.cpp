@@ -16,7 +16,7 @@ ATank* ATankAIController::GetControlledTank() const
 ATank* ATankAIController::GetPlayerTank() const
 {
 	ATankPlayerController* PlayerController = Cast<ATankPlayerController>(GetWorld()->GetFirstPlayerController());
-	if (!PlayerController) { return nullptr };
+	if (!PlayerController) { return nullptr; }
 
 	return Cast<ATank>(PlayerController->GetControlledTank());
 }
@@ -40,17 +40,17 @@ void ATankAIController::BeginPlay()
 	}
 
 	/// Check for player's tank [TEST]
-	ATank* PlayerTank = GetPlayerTank();
-	if (!PlayerTank)
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s hasn't found first player\'s tank!"), *this->GetName());
-	}
-	else
-	{
-		UE_LOG(LogTemp, Display,
-			TEXT("%s has found this as the first player's tank: %s"),
-			*this->GetName(), *PlayerTank->GetName()
-		);
-	}
+	//ATank* PlayerTank = GetPlayerTank();
+	//if (!PlayerTank)
+	//{
+	//	UE_LOG(LogTemp, Error, TEXT("%s hasn't found first player\'s tank!"), *this->GetName());
+	//}
+	//else
+	//{
+	//	UE_LOG(LogTemp, Display,
+	//		TEXT("%s has found this as the first player's tank: %s"),
+	//		*this->GetName(), *PlayerTank->GetName()
+	//	);
+	//}
 	/// [ENDTEST]
 }

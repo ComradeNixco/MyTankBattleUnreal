@@ -8,17 +8,27 @@ ATank* ATankPlayerController::GetControlledTank() const
 	return Cast<ATank>(GetPawn());
 }
 
+void ATankPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControlledTank()) { return; }
+
+	//TODO: Actual aiming towards the user's crosshair
+}
+
+void ATankPlayerController::Tick(float DeltaSecond)
+{
+	Super::Tick(DeltaSecond);
+
+	AimTowardsCrosshair();
+}
+
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
 	ATank* ControlledTank = GetControlledTank();
-	if (!ControlledTank)
+	/*if (!ControlledTank)
 	{
 		UE_LOG(LogTemp, Error, TEXT("PlayerController not possesing a tank"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Display, TEXT("PlayerController controls the following tank: %s"), *ControlledTank->GetName());
-	}
+	}*/
 }
