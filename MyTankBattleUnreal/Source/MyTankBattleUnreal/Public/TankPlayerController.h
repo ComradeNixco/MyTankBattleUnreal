@@ -10,6 +10,14 @@
 #include "Tank.h"
 #include "TankPlayerController.generated.h"
 
+// float representing one third at the best of the compiler possibility
+#define ONE_THIRD	(1.f/3.f)
+
+constexpr float kmToCm(float km) 
+{
+	//      to  meters   cm
+	return km * 1000.f * 100.f; 
+}
 
 /**
  * PlayerController specialized to Tank pawns
@@ -19,6 +27,11 @@ class MYTANKBATTLEUNREAL_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
+	ATankPlayerController() : 
+		CrosshairLocation(FVector2D(0.5f, ONE_THIRD)),
+		SightRange(kmToCm(10.f))
+	{}
+
 	/**
 	 * Obtains the tank controlled by this TankPlayerController
 	 * @returns The tank pawn controlled by this TankPlayerController
@@ -40,4 +53,18 @@ protected:
 
 private:
 	void AimTowardsCrosshair();
+
+	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
+	/**
+	 * Obtains the direction the players looking related to the ScreenLocation
+	 * @param ScreenLocation Position to be deprojected to obtain direction
+	 * @param OutLookDirection Unit vector representing the direction of the camera at the given ScreenLocation
+	 * @returns true if deprojection was successful; false otherwise
+	 */
+	bool GetLookDirection(const FVector2D& ScreenLocation, FVector& OutLookDirection) const;
+
+	UPROPERTY(EditAnywhere)
+		FVector2D CrosshairLocation = FVector2D(0.5f, ONE_THIRD);
+	UPROPERTY(EditAnywhere)
+		float SightRange = kmToCm(10.f);
 };
