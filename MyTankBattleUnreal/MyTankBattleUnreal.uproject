@@ -18,5 +18,9 @@
 			"Name": "CodeView",
 			"Enabled": true
 		}
+	],
+	"TargetPlatforms": [
+		"AllDesktop",
+		"WindowsNoEditor"
 	]
 }

@@ -15,7 +15,12 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 
-public:
+	/**
+	 * Rotates the turret and barrel to point to the specified location
+	 * @param Location Wherer to point at
+	 */
+	void AimAt(const FVector& Location);
+
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;
 

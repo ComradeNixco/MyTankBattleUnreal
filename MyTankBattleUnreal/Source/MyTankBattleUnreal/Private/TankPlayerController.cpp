@@ -12,15 +12,13 @@ void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
 
-	//TODO: Actual aiming towards the user's crosshair
 	FVector HitLoc;
 	if (GetSightRayHitLocation(HitLoc))
 	{
-		// Landscape was hit
-		UE_LOG(LogTemp, Display, TEXT("Aim Location: %s"), *HitLoc.ToString());
+		/// Landscape was hit
+		float DistanceInMeters = FVector::Distance(GetPawn()->GetActorLocation(), HitLoc) / 100.f;
+		GetControlledTank()->AimAt(HitLoc);
 	}
-	else
-		UE_LOG(LogTemp, Warning, L"Fail!");
 }
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
@@ -39,14 +37,14 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 
 	FVector Start = PlayerCameraManager->GetCameraLocation();
 	FVector End = Start + (WorldDirection * SightRange);
-
 	FHitResult Hit;
 	bool bSuccess = GetWorld()->LineTraceSingleByChannel(
 		Hit,
 		Start, End,
 		ECollisionChannel::ECC_Visibility, FCollisionQueryParams(FName(""), true, GetPawn())
 	);
-	OutHitLocation = Hit.Location;
+
+	OutHitLocation = bSuccess ? Hit.Location : FVector::ZeroVector;
 	return bSuccess;
 }
 
@@ -66,9 +64,9 @@ void ATankPlayerController::Tick(float DeltaSecond)
 	AimTowardsCrosshair();
 }
 
-void ATankPlayerController::BeginPlay()
+/*void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
 	//ATank* ControlledTank = GetControlledTank();
-}
+}*/

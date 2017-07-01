@@ -17,7 +17,7 @@ class MYTANKBATTLEUNREAL_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 public:
-	
+
 
 protected:
 	/**
@@ -29,4 +29,5 @@ protected:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 };

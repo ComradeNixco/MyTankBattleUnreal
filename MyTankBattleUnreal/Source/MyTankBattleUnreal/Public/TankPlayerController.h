@@ -27,15 +27,12 @@ class MYTANKBATTLEUNREAL_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
-	ATankPlayerController() : 
-		CrosshairLocation(FVector2D(0.5f, ONE_THIRD)),
-		SightRange(kmToCm(10.f))
-	{}
 
 	/**
 	 * Obtains the tank controlled by this TankPlayerController
 	 * @returns The tank pawn controlled by this TankPlayerController
 	 */
+	UFUNCTION(BlueprintCallable)
 	ATank* GetControlledTank() const;
 
 public:
@@ -49,9 +46,12 @@ protected:
 	/**
 	 * Called when this begins to play
 	 */
-	virtual void BeginPlay() override;
+	//virtual void BeginPlay() override;
 
 private:
+	/**
+	 * Does necessary calculations to obtain where (in the world) to aim regarding of the users crosshair
+	 */
 	void AimTowardsCrosshair();
 
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;

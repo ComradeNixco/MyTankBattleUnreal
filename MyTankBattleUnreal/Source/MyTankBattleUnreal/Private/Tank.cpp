@@ -20,6 +20,15 @@ void ATank::BeginPlay()
 	Super::Tick(DeltaTime);
 }*/
 
+void ATank::AimAt(const FVector& Location)
+{
+	//TODO: Do actual aim
+	UE_LOG(LogTemp, Display,
+		TEXT("%s aiming at %s"),
+		*this->GetName(), *Location.ToString()
+	);
+}
+
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
