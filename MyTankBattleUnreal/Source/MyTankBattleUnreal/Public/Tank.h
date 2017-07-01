@@ -11,13 +11,17 @@ class MYTANKBATTLEUNREAL_API ATank : public APawn
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY()
+		class UTankAimingComponent* AimingComponent;
+
 public:
 	// Sets default values for this pawn's properties
 	ATank();
 
 	/**
 	 * Rotates the turret and barrel to point to the specified location
-	 * @param Location Wherer to point at
+	 * @param Location Where to point at
 	 */
 	void AimAt(const FVector& Location);
 
