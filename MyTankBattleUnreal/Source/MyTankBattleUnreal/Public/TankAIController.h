@@ -10,14 +10,12 @@
 
 
 /**
- * Specialised AI Controller for Tanks (ATank pawns)
+ * Specialized AI Controller for Tanks (ATank pawns)
  */
 UCLASS()
 class MYTANKBATTLEUNREAL_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
-public:
-
 
 protected:
 	/**

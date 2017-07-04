@@ -13,7 +13,7 @@ class MYTANKBATTLEUNREAL_API ATank : public APawn
 
 protected:
 	UPROPERTY()
-		class UTankAimingComponent* AimingComponent;
+	class UTankAimingComponent* AimingComponent;
 
 public:
 	// Sets default values for this pawn's properties

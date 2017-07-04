@@ -2,14 +2,15 @@
 
 #include "Tank.h"
 
+#include "Runtime/Engine/Classes/Components/InputComponent.h"
+
 #include "Components/TankAimingComponent.h"
-#include "Components/InputComponent.h"
 
 ATank::ATank()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	AimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+	AimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
 }
 
 void ATank::BeginPlay()
