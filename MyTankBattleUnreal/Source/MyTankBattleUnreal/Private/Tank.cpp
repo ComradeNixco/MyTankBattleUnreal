@@ -33,3 +33,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void ATank::Fire() const
+{
+	UE_LOG(LogTemp, Display, TEXT("Tank \"%s\" has fired!"), *this->GetName());
+}
