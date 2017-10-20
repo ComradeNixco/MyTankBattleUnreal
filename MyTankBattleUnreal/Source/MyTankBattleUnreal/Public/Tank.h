@@ -12,8 +12,11 @@ class MYTANKBATTLEUNREAL_API ATank : public APawn
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	class UTankAimingComponent* AimingComponent;
+
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LaunchSpeed = 100000.f; // 3.600 km/h (1 km/s or 100'000 cm/s)
 
 public:
 	// Sets default values for this pawn's properties
@@ -24,9 +27,6 @@ public:
 	 * @param Location Where to point at
 	 */
 	void AimAt(const FVector& Location);
-
-	// Called every frame
-	//virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

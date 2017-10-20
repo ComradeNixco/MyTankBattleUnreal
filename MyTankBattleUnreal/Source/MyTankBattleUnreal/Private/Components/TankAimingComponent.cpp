@@ -4,38 +4,72 @@
 
 #include "Runtime/Engine/Classes/Components/ActorComponent.h"
 #include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
+
 #include "Runtime/Engine/Classes/GameFramework/Actor.h"
+
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+
+#include "TankBarrelComponent.h"
+#include "TankTurretComponent.h"
 
 UTankAimingComponent::UTankAimingComponent()
 {
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
-
-void UTankAimingComponent::AimTowards(const FVector& Location)
+void UTankAimingComponent::AimTowards(const FVector& Location, float LaunchSpeed)
 {
-	/*UE_LOG(LogTemp, Display,
-		TEXT("%s is aiming towards %s"),
-		*GetOwner()->GetName(), *Location.ToString()
-	);*/
+	if (!Barrel) { return; }
 
-	if (Barrel)
+	FVector LaunchVelocity;
+	const FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	if (UGameplayStatics::SuggestProjectileVelocity(this,
+		LaunchVelocity,
+		StartLocation, Location, LaunchSpeed,
+		false, 0.f, 0.f,
+		ESuggestProjVelocityTraceOption::DoNotTrace))
 	{
-		UE_LOG(LogTemp, Warning,
-			TEXT("%s is aiming towards %s; Barrel at: %s"),
-			*GetOwner()->GetName(), *Location.ToString(), *Barrel->GetComponentLocation().ToString()
-		);
+		const FVector AimDirection = LaunchVelocity.GetSafeNormal();
+		MoveTurretTowards(AimDirection);
+
+		/*UE_LOG(LogTemp, Warning,
+			TEXT("%s is aiming towards %s; Barrel at: %s; Aiming direction: %s"),
+			*GetOwner()->GetName(), *Location.ToString(),
+			*Barrel->GetComponentLocation().ToString(), *AimDirection.ToString()
+		);*/
 	}
 }
 
-void UTankAimingComponent::BeginPlay()
+void UTankAimingComponent::MoveTurretTowards(const FVector& AimDirection)
 {
-	Super::BeginPlay();
+	if (!Turret) { return; }
+
+	// Work-out difference between current barrel rotation and AimDirection
+	// Move the barrel the right amount this frame
+	// Given a max elevation speed and the frame time
+
+	FRotator BarrelRotator = Barrel->GetForwardVector().ToOrientationRotator();
+	FRotator AimRotator = AimDirection.ToOrientationRotator();
+	FRotator DeltaBarrelRot = AimRotator - BarrelRotator;
+	FRotator TurretRotator = AimRotator - Turret->GetForwardVector().ToOrientationRotator();
+
+	UE_LOG(LogTemp, Warning,
+		TEXT("AimRotator: %s\tBarrelRotator: %s\tTurretRotator: %s"),
+		*AimRotator.ToString(), *BarrelRotator.ToString(), *TurretRotator.ToString()
+	);
+
+	Barrel->Elevate(DeltaBarrelRot.Pitch);
+	Turret->Rotate(TurretRotator.Yaw);
 }
 
+//void UTankAimingComponent::BeginPlay()
+//{
+//	Super::BeginPlay();
+//}
 
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+
+/*void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-}
+}*/
 

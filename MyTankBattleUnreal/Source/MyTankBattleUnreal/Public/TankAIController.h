@@ -5,9 +5,10 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 
-#include "Tank.h"
 #include "TankAIController.generated.h"
 
+
+class ATank;
 
 /**
  * Specialized AI Controller for Tanks (ATank pawns)

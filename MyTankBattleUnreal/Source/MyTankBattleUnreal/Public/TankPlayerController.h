@@ -6,12 +6,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 
-/// MyTankBattleUnreal's includes
-#include "Tank.h"
 #include "TankPlayerController.generated.h"
 
 // float representing one third at the best of the compiler possibility
 #define ONE_THIRD	(1.f/3.f)
+
+class ATank;
 
 constexpr float kmToCm(float km) 
 {
