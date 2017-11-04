@@ -4,6 +4,7 @@
 
 #include "Runtime/Engine/Classes/Components/InputComponent.h"
 #include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
+#include "Runtime/Engine/Classes/Engine/World.h"
 
 #include "Components/TankAimingComponent.h"
 
@@ -21,7 +22,6 @@ void ATank::BeginPlay()
 
 void ATank::AimAt(const FVector& Location)
 {
-	//TODO: Do actual aim
 	if (AimingComponent)
 	{
 		AimingComponent->AimTowards(Location, LaunchSpeed);
@@ -35,5 +35,6 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::Fire() const
 {
-	UE_LOG(LogTemp, Display, TEXT("Tank \"%s\" has fired!"), *this->GetName());
+	float TimeStamp = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("[%f] Tank \"%s\" has fired!"), TimeStamp, *this->GetName());
 }

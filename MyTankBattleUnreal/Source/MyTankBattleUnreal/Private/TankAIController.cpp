@@ -38,10 +38,12 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	ATank* ControlledTank = GetControlledTank();
 	ATank* PlayerTank = GetPlayerTank();
+
 	if (ControlledTank && PlayerTank)
 	{
 		//TODO: Move towards player
 
+		// Aiming
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());
 
 		//TODO: Fire at player
